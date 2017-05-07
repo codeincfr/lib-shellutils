@@ -1,0 +1,32 @@
+{
+  "name": "joanfabregat/console-utils",
+  "type": "library",
+  "description": "Console utilities",
+  "keywords": ["console", "shell", "tools", "utils"],
+  "homepage": "https://github.com/joanfabregat/console-utils",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "Joan Fabrégat",
+      "email": "joan@joan.pro",
+      "homepage": "https://www.joan.pro"
+    }
+  ],
+
+  "require": {
+    "php": ">=7",
+    "aws/aws-sdk-php": "^3.27"
+  },
+
+  "autoload": {
+    "psr-0": {
+      "ConsoleUtils": "src/",
+      "ConsoleUtils\\Tests": "tests/"
+    }
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  }
+}
