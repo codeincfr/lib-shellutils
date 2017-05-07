@@ -15,8 +15,7 @@
   ],
 
   "require": {
-    "php": ">=7",
-    "aws/aws-sdk-php": "^3.27"
+    "php": ">=7"
   },
 
   "autoload": {

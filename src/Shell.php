@@ -1,12 +1,12 @@
-<?php namespace ConsoleUtils;
+<?php namespace ShellUtils;
 
 /**
- * A library to send data to the console
+ * A library to send data to the shell.
  *
- * @author Joan Fabrégat <joan@jona.pro
+ * @author Joan Fabrégat <joan@jona.pro>
  * @version 1.0
  */
-class Console {
+class Shell {
 	const YES_MODE_ANSWER = 'y';
 	
 	// Colors
@@ -23,9 +23,9 @@ class Console {
 	/**
 	 * Verifies if the quiet mode is enabled.
 	 *
-	 * @see Console::enableQuietMode()
-	 * @see Console::disableQuietMode()
-	 * @see Console::isQuietModeEnabled()
+	 * @see Shell::enableQuietMode()
+	 * @see Shell::disableQuietMode()
+	 * @see Shell::isQuietModeEnabled()
 	 * @var bool
 	 */
 	private static $quietMode = false;
@@ -33,9 +33,9 @@ class Console {
 	/**
 	 * Verifies if the yes mode (answers "y" to all questions and do not prompt) is enabled.
 	 *
-	 * @see Console::enableYesMode()
-	 * @see Console::disableYesMode()
-	 * @see Console::isYesModeEnabled()
+	 * @see Shell::enableYesMode()
+	 * @see Shell::disableYesMode()
+	 * @see Shell::isYesModeEnabled()
 	 * @var bool
 	 */
 	private static $yesMode = false;
