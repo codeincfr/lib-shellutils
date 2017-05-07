@@ -2,7 +2,7 @@
   "name": "joanfabregat/shell-utils",
   "type": "library",
   "description": "Shell utilities",
-  "keywords": ["shell", "tools", "utils"," php"],
+  "keywords": ["shell", "tools", "utils", "php"],
   "homepage": "https://github.com/joanfabregat/shell-utils",
   "license": "MIT",
 
@@ -20,8 +20,8 @@
 
   "autoload": {
     "psr-0": {
-      "ConsoleUtils": "src/",
-      "ConsoleUtils\\Tests": "tests/"
+      "ShellUtils": "src/",
+      "ShellUtils\\Tests": "tests/"
     }
   },
 
