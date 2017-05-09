@@ -1,10 +1,11 @@
 {
   "name": "joanfabregat/shell-utils",
+  "version": "1.0.0beta1",
   "type": "library",
   "description": "Shell utilities",
   "keywords": ["shell", "tools", "utils", "php"],
   "homepage": "https://github.com/joanfabregat/shell-utils",
-  "license": "MIT",
+  "license": "GPL-2.0",
 
   "authors": [
     {
