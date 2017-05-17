@@ -145,7 +145,7 @@ class Arguments {
 	 * @param int $number
 	 * @return string|bool
 	 */
-	public function getParameter(int $number) {
+	public function getParameterValue(int $number) {
 		if (array_key_exists($number, $this->parameters)) {
 			return $this->parameters[$number];
 		}
