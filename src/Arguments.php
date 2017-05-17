@@ -95,6 +95,15 @@ class Arguments {
 	}
 	
 	/**
+	 * Verifies if the script has been called with a least one parameter.
+	 *
+	 * @return bool
+	 */
+	public function hasParameters():bool {
+		return !empty($this->parameters);
+	}
+	
+	/**
 	 * Returns the parsed arguments in an assoc array with their values.
 	 *
 	 * @return array
@@ -112,6 +121,15 @@ class Arguments {
 		return count($this->arguments);
 	}
 	
+	/**
+	 * Verifies if the script has been called with a least one argument.
+	 *
+	 * @return bool
+	 */
+	public function hasArguments():bool {
+		return !empty($this->arguments);
+	}
+
 	/**
 	 * Returns the raw input.
 	 *
