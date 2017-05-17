@@ -1,6 +1,6 @@
 {
   "name": "joanfabregat/shellutils",
-  "version": "1.0.0beta1",
+  "version": "1.0.0",
   "type": "library",
   "description": "Shell utilities",
   "keywords": ["shell", "tools", "utils", "php"],
@@ -14,7 +14,6 @@
       "homepage": "https://www.joan.pro"
     }
   ],
-
 
   "dist": {
     "url": "https://github.com/joanfabregat/shellutils/archive/master.zip",

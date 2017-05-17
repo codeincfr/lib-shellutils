@@ -1,12 +1,13 @@
 <?php namespace ShellUtils;
 
 /**
- * A library to send data to the shell.
+ * A library to send data to the console.
  *
  * @author Joan Fabrégat <joan@jona.pro>
- * @version 1.0
+ * @version 1.1
+ * @package ShellUtils
  */
-class Shell {
+class Console {
 	const YES_MODE_ANSWER = 'y';
 	
 	// Colors
@@ -23,9 +24,9 @@ class Shell {
 	/**
 	 * Verifies if the quiet mode is enabled.
 	 *
-	 * @see Shell::enableQuietMode()
-	 * @see Shell::disableQuietMode()
-	 * @see Shell::isQuietModeEnabled()
+	 * @see Console::enableQuietMode()
+	 * @see Console::disableQuietMode()
+	 * @see Console::isQuietModeEnabled()
 	 * @var bool
 	 */
 	private static $quietMode = false;
@@ -33,9 +34,9 @@ class Shell {
 	/**
 	 * Verifies if the yes mode (answers "y" to all questions and do not prompt) is enabled.
 	 *
-	 * @see Shell::enableYesMode()
-	 * @see Shell::disableYesMode()
-	 * @see Shell::isYesModeEnabled()
+	 * @see Console::enableYesMode()
+	 * @see Console::disableYesMode()
+	 * @see Console::isYesModeEnabled()
 	 * @var bool
 	 */
 	private static $yesMode = false;
@@ -54,20 +55,27 @@ class Shell {
 	}
 	
 	/**
+	 * @param string $message
+	 * @param string $color
+	 * @param bool|null $newLine
+	 */
+	public static function sendColored(string $message, string $color, bool $newLine = null) {
+		self::setColor($color);
+		self::send($message, $newLine);
+		self::setColor(self::COLOR_WHITE);
+	}
+	
+	/**
 	 * Sends a green [done] at the end of a processing line.
 	 */
 	public static function done() {
-		self::setColor(self::COLOR_GREEN);
-		self::send(" [done]", true);
-		self::setColor(self::COLOR_WHITE);
+		self::sendColored(" [done]", self::COLOR_GREEN, true);
 	}
 	/**
 	 * Sends a red [error] at the end of a processing line.
 	 */
 	public static function error() {
-		self::setColor(self::COLOR_RED);
-		self::send(" [error]", true);
-		self::setColor(self::COLOR_WHITE);
+		self::sendColored(" [error]", self::COLOR_RED, true);
 	}
 	
 	/**
