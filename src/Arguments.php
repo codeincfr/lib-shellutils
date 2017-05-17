@@ -1,7 +1,7 @@
 <?php namespace ShellUtils;
 
 /**
- * Class Args
+ * Class Arguments
  *
  * @package ShellUtils
  */

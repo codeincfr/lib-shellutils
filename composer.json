@@ -25,9 +25,9 @@
   },
 
   "autoload": {
-    "psr-0": {
-      "ShellUtils": "src/",
-      "ShellUtils\\Tests": "tests/"
+    "psr-4": {
+      "ShellUtils\\": "src/",
+      "ShellUtils\\Tests\\": "tests/"
     }
   },
 
