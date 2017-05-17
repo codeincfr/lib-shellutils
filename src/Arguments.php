@@ -140,23 +140,76 @@ class Arguments {
 	}
 	
 	/**
-	 * Verifies if the script has an argument.
+	 * Returns a parameter's value using its number or FALSE if the script does'nt have such a parameter.
 	 *
-	 * @param string $argument
+	 * @param int $number
+	 * @return string|bool
+	 */
+	public function getParameter(int $number) {
+		if (array_key_exists($number, $this->parameters)) {
+			return $this->parameters[$number];
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns a parameter's number in the scripts parameters or FALSE if the script does'nt have such a parameter.
+	 *
+	 * @param string $parameter
+	 * @return int|false
+	 */
+	public function getParameterNumber(string $parameter) {
+		return array_search($parameter, $this->parameters);
+	}
+	
+	/**
+	 * Verifies if the script has a parameter.
+	 *
+	 * @param string $parameter
 	 * @return bool
 	 */
-	public function hasArgument(string $argument):bool {
-		return array_key_exists($argument, $this->arguments);
+	public function hasParameter(string $parameter):bool {
+		return in_array($parameter, $this->parameters);
+	}
+	
+	/**
+	 * Verifies if the script has an argument.
+	 *
+	 * @param string|array $argument The name (string) or the names (array) of the argument
+	 * @return bool
+	 */
+	public function hasArgument($argument):bool {
+		if (is_array($argument)) {
+			foreach ($argument as $value) {
+				if ($this->hasArgument($value)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		else {
+			return array_key_exists($argument, $this->arguments);
+		}
 	}
 	
 	/**
 	 * Returns the scripts argument's value, NULL if the argument has no value or FALSE of the script
 	 * does'nt have this argument.
 	 *
-	 * @param string $argument
+	 * @param string|array $argument The name (string) or the names (array) of the argument
 	 * @return string|null|false
 	 */
-	public function getArgumentValue(string $argument) {
-		return $this->hasArgument($argument) ? $this->arguments[$argument] : false;
+	public function getArgumentValue($argument) {
+		if (is_array($argument)) {
+			foreach ($argument as $value) {
+				if (array_key_exists($value, $this->arguments)) {
+					return $this->arguments[$value];
+				}
+			}
+		}
+		elseif ($this->hasArgument($argument)) {
+			return $this->arguments[$argument];
+		}
+		return false;
 	}
 }
