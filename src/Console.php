@@ -107,7 +107,7 @@ class Console {
 	 * @param \Exception $exception
 	 */
 	public static function reportException(\Exception $exception) {
-		self::reportError("Error ".get_class($exception).":\n".$exception->getMessage());
+		self::reportError("Error [".get_class($exception)."]:\n".$exception->getMessage());
 	}
 	
 	/**
