@@ -1,3 +1,3 @@
 # Shell utils
 
-A set of tools to render data in a shell in PHP.
+Shell utilities written in PHP 7 Edit
