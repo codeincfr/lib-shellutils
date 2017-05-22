@@ -87,27 +87,31 @@ class Console {
 	 * @return bool|null
 	 */
 	public static function askBool(string $question, bool $defaultAnwser = null) {
-		if (!($resp = readline("$question (y/n)").($defaultAnwser !== null ? "[".($defaultAnwser ? "y" : "n")."]" :"")." ")) {
-			return $defaultAnwser;
+		if (!($resp = readline("$question (y/n) ").($defaultAnwser !== null ? "[".($defaultAnwser ? "y" : "n")."]" :"")." ")) {
+			return $defaultAnwser ?? false;
 		}
-		switch ($resp) {
+		switch (strtolower($resp)) {
 			case "y": case "yes": return true;
-			case "n": case "no": return false;
-			default: return null;
+			default: case "n": case "no": return false;
 		}
 	}
 	
 	/**
 	 * Sends a green [done] at the end of a processing line.
+	 *
+	 * @param string $doneMsg
 	 */
-	public static function done() {
-		self::sendColored(" [done]", self::COLOR_GREEN, true);
+	public static function done(string $doneMsg = null) {
+		self::sendColored(" [".($doneMsg ?? "done")."]", self::COLOR_GREEN, true);
 	}
+	
 	/**
 	 * Sends a red [error] at the end of a processing line.
+	 *
+	 * @param string $erorrMsg
 	 */
-	public static function error() {
-		self::sendColored(" [error]", self::COLOR_RED, true);
+	public static function error(string $erorrMsg = null) {
+		self::sendColored(" [".($erorrMsg ?? "error")."]", self::COLOR_RED, true);
 	}
 	
 	/**
