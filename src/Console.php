@@ -66,6 +66,38 @@ class Console {
 	}
 	
 	/**
+	 * Asks a question an retruns the answer or NULL if no answer is provided.
+	 *
+	 * @param string $question Question
+	 * @param string|null $defaultAnwser Default anwser
+	 * @return string|null
+	 */
+	public static function ask(string $question, string $defaultAnwser = null) {
+		if (!($resp = readline($question.($defaultAnwser ? " [$defaultAnwser]" : "")." "))) {
+			return $defaultAnwser;
+		}
+		return $resp;
+	}
+	
+	/**
+	 * Asks a boolean question. Return the anwser or NULL if no anwser is provided or if the anwser can no be understood.
+	 *
+	 * @param string $question Question
+	 * @param bool|null $defaultAnwser Default anwser
+	 * @return bool|null
+	 */
+	public static function askBool(string $question, bool $defaultAnwser = null) {
+		if (!($resp = readline("$question (y/n)").($defaultAnwser !== null ? "[".($defaultAnwser ? "y" : "n")."]" :"")." ")) {
+			return $defaultAnwser;
+		}
+		switch ($resp) {
+			case "y": case "yes": return true;
+			case "n": case "no": return false;
+			default: return null;
+		}
+	}
+	
+	/**
 	 * Sends a green [done] at the end of a processing line.
 	 */
 	public static function done() {
