@@ -3,6 +3,8 @@
 /**
  * Class Arguments
  *
+ * @author Joan Fabrégat <joan@joan.pro>
+ * @version 1.0
  * @package ShellUtils
  */
 class Arguments {
