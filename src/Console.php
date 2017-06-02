@@ -4,7 +4,7 @@
  * A library to send data to the console.
  *
  * @author Joan Fabrégat <joan@joan.pro>
- * @version 2.0
+ * @version 2.1
  * @package ShellUtils
  */
 class Console {
@@ -123,7 +123,7 @@ class Console {
 	 */
 	public static function askBool(string $question, bool $defaultAnwser = null) {
 		if (!self::isYesModeEnabled()) {
-			if (!($resp = readline(trim($question)." (y/n) ").($defaultAnwser !== null ? "[".($defaultAnwser ? "y" : "n")."]" : "")." ")) {
+			if (!($resp = readline(trim($question)." (y/n) ".($defaultAnwser !== null ? "[".($defaultAnwser ? "y" : "n")."]" : "")." "))) {
 				return $defaultAnwser ?? false;
 			}
 			switch (strtolower($resp)) {
@@ -136,7 +136,7 @@ class Console {
 					return false;
 			}
 		}
-		return $defaultAnwser ?? "y";
+		return $defaultAnwser ?? true;
 	}
 	
 	/**
