@@ -5,8 +5,7 @@
   "description": "Shell utilities",
   "keywords": ["shell", "tools", "utils", "php"],
   "homepage": "https://github.com/joanfabregat/shellutils",
-  "license": "GPL-2.0",
-
+  "license": "MIT",
   "authors": [
     {
       "name": "Joan Fabrégat",
@@ -14,24 +13,25 @@
       "homepage": "https://www.joan.pro"
     }
   ],
-
   "dist": {
     "url": "https://github.com/joanfabregat/shellutils/archive/master.zip",
     "type": "zip"
   },
-
   "require": {
     "php": ">=7"
   },
-
   "autoload": {
     "psr-4": {
       "ShellUtils\\": "src/",
       "ShellUtils\\Tests\\": "tests/"
     }
   },
-
   "require-dev": {
     "phpunit/phpunit": "3.7.*"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
   }
 }
