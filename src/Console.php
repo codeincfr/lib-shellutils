@@ -4,7 +4,7 @@
  * A library to send data to the console.
  *
  * @author Joan Fabrégat <joan@joan.pro>
- * @version 3.0
+ * @version 3.1
  * @package ShellUtils
  */
 class Console {
@@ -58,14 +58,10 @@ class Console {
 	 * Sends a message to the console
 	 *
 	 * @param string $message
-	 * @param bool|null $newLine
 	 */
-	public function send(string $message, bool $newLine = null) {
+	public function send(string $message) {
 		if (!$this->isQuietModeEnabled()) {
 			echo $message;
-			if ($newLine) {
-				$this->sendBR();
-			}
 		}
 	}
 	
