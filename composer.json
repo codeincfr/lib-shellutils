@@ -1,6 +1,6 @@
 {
   "name": "joanfabregat/shellutils",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "type": "library",
   "description": "Shell utilities",
   "keywords": ["shell", "tools", "utils", "php"],

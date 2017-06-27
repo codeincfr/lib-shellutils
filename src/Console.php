@@ -4,7 +4,7 @@
  * A library to send data to the console.
  *
  * @author Joan Fabrégat <joan@joan.pro>
- * @version 2.1
+ * @version 3.0
  * @package ShellUtils
  */
 class Console {
@@ -42,7 +42,7 @@ class Console {
 	 * @see Console::isQuietModeEnabled()
 	 * @var bool
 	 */
-	private static $quietMode = false;
+	private $quietMode = false;
 	
 	/**
 	 * Verifies if the yes mode (answers "y" to all questions and do not prompt) is enabled.
@@ -52,7 +52,7 @@ class Console {
 	 * @see Console::isYesModeEnabled()
 	 * @var bool
 	 */
-	private static $yesMode = false;
+	private $yesMode = false;
 	
 	/**
 	 * Sends a message to the console
@@ -60,11 +60,11 @@ class Console {
 	 * @param string $message
 	 * @param bool|null $newLine
 	 */
-	public static function send(string $message, bool $newLine = null) {
-		if (!self::isQuietModeEnabled()) {
+	public function send(string $message, bool $newLine = null) {
+		if (!$this->isQuietModeEnabled()) {
 			echo $message;
 			if ($newLine) {
-				self::sendBR();
+				$this->sendBR();
 			}
 		}
 	}
@@ -74,20 +74,20 @@ class Console {
 	 *
 	 * @param int $count Number of line breaks.
 	 */
-	public static function sendBR(int $count = null) {
+	public function sendBR(int $count = null) {
 		if (!$count) {
-			self::send("\n");
+			$this->send("\n");
 		}
 		else {
-			self::send(str_repeat("\n", $count));
+			$this->send(str_repeat("\n", $count));
 		}
 	}
 	
 	/**
 	 * Sends a line of "-".
 	 */
-	public static function sendHR() {
-		self::sendLine(str_repeat("-", self::COLS));
+	public function sendHR() {
+		$this->sendLine(str_repeat("-", self::COLS));
 	}
 	
 	/**
@@ -95,9 +95,9 @@ class Console {
 	 *
 	 * @param string $message
 	 */
-	public static function sendLine(string $message) {
-		self::send($message);
-		self::sendBR();
+	public function sendLine(string $message) {
+		$this->send($message);
+		$this->sendBR();
 	}
 	
 	/**
@@ -107,7 +107,7 @@ class Console {
 	 * @param string|null $defaultAnwser Default anwser
 	 * @return string|null
 	 */
-	public static function ask(string $question, string $defaultAnwser = null) {
+	public function ask(string $question, string $defaultAnwser = null) {
 		if (!($resp = readline(trim($question).($defaultAnwser ? " [".trim($defaultAnwser)."]" : "")." "))) {
 			return trim($defaultAnwser);
 		}
@@ -121,8 +121,8 @@ class Console {
 	 * @param bool|null $defaultAnwser Default anwser
 	 * @return bool|null
 	 */
-	public static function askBool(string $question, bool $defaultAnwser = null) {
-		if (!self::isYesModeEnabled()) {
+	public function askBool(string $question, bool $defaultAnwser = null) {
+		if (!$this->isYesModeEnabled()) {
 			if (!($resp = readline(trim($question)." (y/n) ".($defaultAnwser !== null ? "[".($defaultAnwser ? "y" : "n")."]" : "")." "))) {
 				return $defaultAnwser ?? false;
 			}
@@ -144,10 +144,10 @@ class Console {
 	 *
 	 * @param string $doneMsg
 	 */
-	public static function sendDoneFlag(string $doneMsg = null) {
-		self::setColorGreen();
-		self::sendLine(" [".($doneMsg ?? "done")."]");
-		self::removeCharacterAttributes();
+	public function sendDoneFlag(string $doneMsg = null) {
+		$this->setColorGreen();
+		$this->sendLine(" [".($doneMsg ?? "done")."]");
+		$this->removeCharacterAttributes();
 	}
 	
 	/**
@@ -155,10 +155,10 @@ class Console {
 	 *
 	 * @param string $erorrMsg
 	 */
-	public static function sendErrorFlag(string $erorrMsg = null) {
-		self::setColorRed();
-		self::sendLine(" [".($erorrMsg ?? "error")."]");
-		self::removeCharacterAttributes();
+	public function sendErrorFlag(string $erorrMsg = null) {
+		$this->setColorRed();
+		$this->sendLine(" [".($erorrMsg ?? "error")."]");
+		$this->removeCharacterAttributes();
 	}
 	
 	/**
@@ -167,106 +167,106 @@ class Console {
 	 * @see Console::ESC_XXX
 	 * @param int $escapeCode
 	 */
-	public static function sendEscape(int $escapeCode) {
-		self::send("\e[{$escapeCode}m");
+	public function sendEscape(int $escapeCode) {
+		$this->send("\e[{$escapeCode}m");
 	}
 	
 	/**
 	 * Enables the bold mode mode.
 	 */
-	public static function setBold() {
-		self::sendEscape(self::ESC_BOLD_MODE);
+	public function enableBold() {
+		$this->sendEscape(self::ESC_BOLD_MODE);
 	}
 	
 	/**
 	 * Enables the low intensity mode.
 	 */
-	public static function setLowIntesity() {
-		self::sendEscape(self::ESC_LOW_INTENSITY_MODE);
+	public function enableLowIntesity() {
+		$this->sendEscape(self::ESC_LOW_INTENSITY_MODE);
 	}
 	
 	/**
 	 * Enables the blinking mode.
 	 */
-	public static function setBlinking() {
-		self::sendEscape(self::ESC_BLINKING_MODE);
+	public function enableBlinking() {
+		$this->sendEscape(self::ESC_BLINKING_MODE);
 	}
 	
 	/**
 	 * Enables the underline mode.
 	 */
-	public static function setUnderline() {
-		self::sendEscape(self::ESC_UNDERLINE_MODE);
+	public function enableUnderline() {
+		$this->sendEscape(self::ESC_UNDERLINE_MODE);
 	}
 	
 	/**
 	 * Goes back to normal text.
 	 */
-	public static function removeCharacterAttributes() {
-		self::sendEscape(self::ESC_CHARACTER_ATTRIBUTES_OFF);
+	public function removeCharacterAttributes() {
+		$this->sendEscape(self::ESC_CHARACTER_ATTRIBUTES_OFF);
 	}
 	
 	/**
 	 * Enables the video reverse.
 	 */
-	public static function enableReverseVideoMode() {
-		self::sendEscape(self::ESC_REVERSE_VIDEO_ON);
+	public function enableReverseVideoMode() {
+		$this->sendEscape(self::ESC_REVERSE_VIDEO_ON);
 	}
 	
 	/**
 	 * Sets the text color to green.
 	 */
-	public static function setColorGreen() {
-		self::sendEscape(self::ESC_COLOR_GREEN);
+	public function setColorGreen() {
+		$this->sendEscape(self::ESC_COLOR_GREEN);
 	}
 	
 	/**
 	 * Sets the text color to red.
 	 */
-	public static function setColorRed() {
-		self::sendEscape(self::ESC_COLOR_RED);
+	public function setColorRed() {
+		$this->sendEscape(self::ESC_COLOR_RED);
 	}
 	
 	/**
 	 * Sets the text color to purple.
 	 */
-	public static function setColorPurple() {
-		self::sendEscape(self::ESC_COLOR_PURPLE);
+	public function setColorPurple() {
+		$this->sendEscape(self::ESC_COLOR_PURPLE);
 	}
 	
 	/**
 	 * Sets the text color to black.
 	 */
-	public static function setColorBalck() {
-		self::sendEscape(self::ESC_COLOR_BROWN);
+	public function setColorBalck() {
+		$this->sendEscape(self::ESC_COLOR_BROWN);
 	}
 	
 	/**
 	 * Sets the text color to blue.
 	 */
-	public static function setColorBlue() {
-		self::sendEscape(self::ESC_COLOR_BLUE);
+	public function setColorBlue() {
+		$this->sendEscape(self::ESC_COLOR_BLUE);
 	}
 	
 	/**
 	 * Sets the text color to cyan.
 	 */
-	public static function setColorCyan() {
-		self::sendEscape(self::ESC_COLOR_CYAN);
+	public function setColorCyan() {
+		$this->sendEscape(self::ESC_COLOR_CYAN);
 	}
 	
 	/**
 	 * Sets the text color to brown.
 	 */
-	public static function setColorBrown() {
-		self::sendEscape(self::ESC_COLOR_BROWN);
+	public function setColorBrown() {
+		$this->sendEscape(self::ESC_COLOR_BROWN);
 	}
 	
 	/**
 	 * Sets the text color to light gray.
 	 */
-	public static function setColorLightGray() {
-		self::sendEscape(self::ESC_COLOR_LIGHT_GRAY);
+	public function setColorLightGray() {
+		$this->sendEscape(self::ESC_COLOR_LIGHT_GRAY);
 	}
 	
 	/**
@@ -274,17 +274,17 @@ class Console {
 	 *
 	 * @param string $message
 	 */
-	public static function reportError(string $message) {
-		self::setColorRed();
-		self::setBold();
-		self::sendHR();
-		self::sendLine("—› ERROR:");
-		self::removeCharacterAttributes();
-		self::setColorRed();
-		self::renderErrorMessage($message);
-		self::setBold();
-		self::sendHR();
-		self::removeCharacterAttributes();
+	public function reportError(string $message) {
+		$this->setColorRed();
+		$this->enableBold();
+		$this->sendHR();
+		$this->sendLine("—› ERROR:");
+		$this->removeCharacterAttributes();
+		$this->setColorRed();
+		$this->renderErrorMessage($message);
+		$this->enableBold();
+		$this->sendHR();
+		$this->removeCharacterAttributes();
 	}
 	
 	/**
@@ -292,35 +292,35 @@ class Console {
 	 *
 	 * @param \Exception $exception
 	 */
-	public static function reportException(\Exception $exception) {
-		self::setColorRed();
-		self::setBold();
-		self::sendHR();
-		self::sendLine("—› EXCEPTION ".self::getExceptionInfos($exception).":");
-		self::removeCharacterAttributes();
-		self::setColorRed();
-		self::renderErrorMessage($exception->getMessage());
-		self::renderExceptionTrace($exception);
+	public function reportException(\Exception $exception) {
+		$this->setColorRed();
+		$this->enableBold();
+		$this->sendHR();
+		$this->sendLine("—› EXCEPTION ".$this->getExceptionInfos($exception).":");
+		$this->removeCharacterAttributes();
+		$this->setColorRed();
+		$this->renderErrorMessage($exception->getMessage());
+		$this->renderExceptionTrace($exception);
 		
 		if ($prevException = $exception->getPrevious()) {
 			$i = 0;
 			do {
-				self::sendBR(2);
-				self::setBold();
-				self::sendLine("—› PREV EXCEPTION #$i ".self::getExceptionInfos($prevException).":");
-				self::removeCharacterAttributes();
-				self::setColorRed();
-				self::renderErrorMessage($prevException->getMessage());
-				self::renderExceptionTrace($prevException);
+				$this->sendBR(2);
+				$this->enableBold();
+				$this->sendLine("—› PREV EXCEPTION #$i ".$this->getExceptionInfos($prevException).":");
+				$this->removeCharacterAttributes();
+				$this->setColorRed();
+				$this->renderErrorMessage($prevException->getMessage());
+				$this->renderExceptionTrace($prevException);
 				
 				$i++;
 			}
 			while ($prevException = $prevException->getPrevious());
 		}
 		
-		self::setBold();
-		self::sendHR();
-		self::removeCharacterAttributes();
+		$this->enableBold();
+		$this->sendHR();
+		$this->removeCharacterAttributes();
 	}
 	
 	/**
@@ -329,7 +329,7 @@ class Console {
 	 * @param \Exception $exception
 	 * @return string
 	 */
-	private static function getExceptionInfos(\Exception $exception):string {
+	private function getExceptionInfos(\Exception $exception):string {
 		return "[".get_class($exception)."]".($exception->getCode() ? " (code: ".$exception->getCode().")" : ")");
 	}
 	
@@ -338,9 +338,9 @@ class Console {
 	 *
 	 * @param string $message
 	 */
-	private static function renderErrorMessage(string $message) {
+	private function renderErrorMessage(string $message) {
 		foreach (explode("\n", wordwrap($message, self::COLS - 3)) as $line) {
-			self::sendLine("   $line");
+			$this->sendLine("   $line");
 		}
 	}
 	
@@ -349,30 +349,30 @@ class Console {
 	 *
 	 * @param \Exception $exception
 	 */
-	private static function renderExceptionTrace(\Exception $exception) {
-		self::sendBR();
-		self::send("   ");
-		self::setUnderline();
-		self::sendLine("Trace:");
-		self::removeCharacterAttributes();
-		self::setColorRed();
+	private function renderExceptionTrace(\Exception $exception) {
+		$this->sendBR();
+		$this->send("   ");
+		$this->enableUnderline();
+		$this->sendLine("Trace:");
+		$this->removeCharacterAttributes();
+		$this->setColorRed();
 		foreach (explode("\n", wordwrap($exception->getTraceAsString(), self::COLS - 3)) as $line) {
-			self::sendLine("   $line");
+			$this->sendLine("   $line");
 		}
 	}
 	
 	/**
 	 * Enables the "quiet mode". Blocks all outputs except for questions.
 	 */
-	public static function enableQuietMode() {
-		self::$quietMode = true;
+	public function enableQuietMode() {
+		$this->quietMode = true;
 	}
 	
 	/**
 	 * Disables the "quiet mode".
 	 */
-	public static function disableQuietMode() {
-		self::$quietMode = true;
+	public function disableQuietMode() {
+		$this->quietMode = true;
 	}
 	
 	/**
@@ -380,22 +380,22 @@ class Console {
 	 *
 	 * @return bool
 	 */
-	public static function isQuietModeEnabled():bool {
-		return self::$quietMode;
+	public function isQuietModeEnabled():bool {
+		return $this->quietMode;
 	}
 	
 	/**
 	 * Enables the "yes mode". Anwsers yes to all bool questions.
 	 */
-	public static function enableYesMode() {
-		self::$yesMode = true;
+	public function enableYesMode() {
+		$this->yesMode = true;
 	}
 	
 	/**
 	 * Disables the "yes mode".
 	 */
-	public static function disableYesMode() {
-		self::$yesMode = true;
+	public function disableYesMode() {
+		$this->yesMode = true;
 	}
 	
 	/**
@@ -403,68 +403,7 @@ class Console {
 	 *
 	 * @return bool
 	 */
-	public static function isYesModeEnabled():bool {
-		return self::$yesMode;
-	}
-	
-	/* ----------------------- DEPRECATED METHODS ----------------------- */
-	
-	/**
-	 * Alias of ask().
-	 *
-	 * @deprecated
-	 * @see Console::ask()
-	 * @param string $message
-	 * @return string
-	 */
-	public static function prompt(string $message):string {
-		return self::ask($message);
-	}
-	
-	/**
-	 * Sends a colored message.
-	 *
-	 * @deprecated
-	 * @param string $message
-	 * @param string $color
-	 * @param bool|null $newLine
-	 */
-	public static function sendColored(string $message, string $color, bool $newLine = null) {
-		self::sendEscape($color);
-		self::send($message, $newLine);
-		self::removeCharacterAttributes();
-	}
-	
-	/**
-	 * Alias of sendDoneFlag().
-	 *
-	 * @deprecated
-	 * @see Console::sendDoneFlag()
-	 * @param string $doneMsg
-	 */
-	public static function done(string $doneMsg = null) {
-		self::sendDoneFlag($doneMsg);
-	}
-	
-	/**
-	 * Alias of sendErrorFlag().
-	 *
-	 * @deprecated
-	 * @see Console::sendErrorFlag()
-	 * @param string $erorrMsg
-	 */
-	public static function error(string $erorrMsg = null) {
-		self::sendErrorFlag($erorrMsg);
-	}
-	
-	/**
-	 * Changes the text's color.
-	 *
-	 * @deprecated
-	 * @param int $color
-	 * @see Console::sendEscape()
-	 */
-	public static function setColor(int $color) {
-		self::sendEscape($color);
+	public function isYesModeEnabled():bool {
+		return $this->yesMode;
 	}
 }
